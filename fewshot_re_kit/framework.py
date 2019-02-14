@@ -78,10 +78,11 @@ class FewShotREFramework:
         '''
         PyTorch before and after 0.4
         '''
-        if int(torch.__version__.split('.')[1]) < 4:
-            return x[0]
-        else:
-            return x.item()
+        #print(torch.__version__, int(torch.__version__.split('.')[1]))
+        #if int(torch.__version__.split('.')[1]) < 4:
+        #    return x[0]
+        #else:
+        return x.item()
 
     def train(self,
               model,
@@ -149,7 +150,7 @@ class FewShotREFramework:
             right = model.accuracy(pred, label)
             optimizer.zero_grad()
             loss.backward()
-            nn.utils.clip_grad_norm(parameters_to_optimize, 10)
+            nn.utils.clip_grad_norm_(parameters_to_optimize, 10)
             optimizer.step()
             
             iter_loss += self.item(loss.data)
